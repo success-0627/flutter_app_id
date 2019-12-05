@@ -14,4 +14,4 @@ release:
   only:
     - tags
   script:
-    - flutter pub publish
+    - flutter pub pub publish
