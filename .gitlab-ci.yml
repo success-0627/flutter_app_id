@@ -2,16 +2,8 @@ image: cirrusci/flutter:latest
 
 stages:
   - test
-  - release
 
 test:
   stage: test
   script:
     - flutter test
-
-release:
-  stage: release
-  only:
-    - tags
-  script:
-    - flutter pub publish

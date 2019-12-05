@@ -25,7 +25,8 @@ Future<void> updateApplicationIdFromArguments(List<String> arguments) async {
   }
 
   // Load the config file
-  final Configuration config = await loadConfigFileFromArgResults(argResults, verbose: true);
+  final Configuration config =
+      await loadConfigFileFromArgResults(argResults, verbose: true);
 
   try {
     await updateApplicationIdFromConfig(config);
@@ -59,8 +60,7 @@ Future<Configuration> loadConfigFileFromArgResults(ArgResults argResults,
   return config;
 }
 
-Future<Configuration> loadConfigFile(String filePath,
-    {bool verbose}) async {
+Future<Configuration> loadConfigFile(String filePath, {bool verbose}) async {
   verbose ??= false;
   if (filePath != null) {
     try {
