@@ -41,7 +41,7 @@ In the above configuration, the package is setup to replace the existing applica
 Shown below is the full list of attributes which you can specify within your Flutter Launcher Icons configuration.
 
 - `android`/`ios`
-  - `false`: Ignore updateing application id for this platform
+  - absent: Ignore updateing application id for this platform
   - `com.example.applicationId`: This will update the application id for the platform with the name you specify.
 
 ### Special thanks
