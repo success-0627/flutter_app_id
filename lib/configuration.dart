@@ -16,7 +16,9 @@ class Configuration extends Equatable {
   static Configuration fromString(String data) {
     final YamlMap yamlMap = loadYaml(data);
 
-    if (yamlMap == null || !yamlMap.containsKey(_FLUTTER_APPLICATION_ID_KEY) || !(yamlMap[_FLUTTER_APPLICATION_ID_KEY] is Map)) {
+    if (yamlMap == null ||
+        !yamlMap.containsKey(_FLUTTER_APPLICATION_ID_KEY) ||
+        !(yamlMap[_FLUTTER_APPLICATION_ID_KEY] is Map)) {
       throw NoConfigFoundException();
     }
     return Configuration(

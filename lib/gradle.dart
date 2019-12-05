@@ -33,12 +33,10 @@ class Gradle {
       final String line = _data[x];
       if (line.contains('$key')) {
         _data[x] = line.replaceAllMapped(
-            RegExp('($key[ ]*)[0-9]*'),
-            (Match match) => '${match[1]}$value');
+            RegExp('($key[ ]*)[0-9]*'), (Match match) => '${match[1]}$value');
       }
     }
   }
-
 
   @override
   String toString() {
