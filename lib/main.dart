@@ -38,12 +38,16 @@ Future<void> updateApplicationIdFromArguments(List<String> arguments) async {
 
 Future<void> updateApplicationIdFromConfig(Configuration config) async {
   if (config.android != null) {
+    stdout.writeln('Updating Android application Id');
     final Gradle gradleConf = await Gradle.fromFile(File(ANDROID_CONFIG_FILE));
     gradleConf.updateString(ANDROID_APPID_KEY, config.android);
+    gradleConf.toFile(File(ANDROID_CONFIG_FILE));
   }
   if (config.ios != null) {
+    stdout.writeln('Updating iOS application Id');
     final Plist plistConf = await Plist.fromFile(File(IOS_CONFIG_FILE));
     plistConf.updateString(IOS_APPID_KEY, config.ios);
+    plistConf.toFile(File(IOS_CONFIG_FILE));
   }
 }
 
