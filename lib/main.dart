@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:args/args.dart';
+import 'package:flutter_application_id/pbxproj.dart';
 
 import 'configuration.dart';
 import 'constants.dart';
 import 'gradle.dart';
-import 'plist.dart';
 
 const String fileOption = 'file';
 const String helpFlag = 'help';
@@ -45,9 +45,9 @@ Future<void> updateApplicationIdFromConfig(Configuration config) async {
   }
   if (config.ios != null) {
     stdout.writeln('Updating iOS application Id');
-    final Plist plistConf = await Plist.fromFile(File(IOS_CONFIG_FILE));
-    plistConf.updateString(IOS_APPID_KEY, config.ios);
-    plistConf.toFile(File(IOS_CONFIG_FILE));
+    final Pbxproj pbxprojConf = await Pbxproj.fromFile(File(IOS_PBXPROJ_FILE));
+    pbxprojConf.updateSymbol(IOS_APPID_KEY, config.ios);
+    pbxprojConf.toFile(File(IOS_PBXPROJ_FILE));
   }
 }
 
