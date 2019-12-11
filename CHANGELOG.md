@@ -11,3 +11,15 @@
 
 - Fixed Readme
 - Better sources formatting
+
+## 0.0.4
+
+- Actually updates project conf files :)
+
+## 0.0.5
+
+- Updates Pbxproj instead of Plist.
+
+## 0.0.6
+
+- Updates Application name if requested

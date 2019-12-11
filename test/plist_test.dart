@@ -1,9 +1,24 @@
-import 'package:flutter_application_id/plist.dart';
+import 'package:flutter_application_id/file_updater/file_updater.dart';
+import 'package:flutter_application_id/file_updater/rules/plist.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  FileUpdater _fileUpdater;
+
+  void givenFileContent(String fileContent) {
+    _fileUpdater = FileUpdater.fromString(fileContent);
+  }
+
+  void whenUpdating(String key, String value) {
+    _fileUpdater.update(Plist(key, value));
+  }
+
+  void thenExpectsFileContent(String fileContent) {
+    expect(_fileUpdater.toString(), fileContent);
+  }
+
   test('Should update value if present', () {
-    final Plist plistUpdater = Plist.fromString('''
+    givenFileContent('''
       <?xml version="1.0" encoding="UTF-8"?>
       <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
       <plist version="1.0">
@@ -13,8 +28,8 @@ void main() {
       </dict>
       </plist>
     ''');
-    plistUpdater.updateString('aKey', 'valueAfter');
-    expect(plistUpdater.toString(), '''
+    whenUpdating('aKey', 'valueAfter');
+    thenExpectsFileContent('''
       <?xml version="1.0" encoding="UTF-8"?>
       <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
       <plist version="1.0">
@@ -27,7 +42,7 @@ void main() {
   });
 
   test('Should not update value if absent', () {
-    final Plist plistUpdater = Plist.fromString('''
+    givenFileContent('''
       <?xml version="1.0" encoding="UTF-8"?>
       <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
       <plist version="1.0">
@@ -37,8 +52,8 @@ void main() {
       </dict>
       </plist>
     ''');
-    plistUpdater.updateString('absentKey', 'valueAfter');
-    expect(plistUpdater.toString(), '''
+    whenUpdating('absentKey', 'valueAfter');
+    thenExpectsFileContent('''
       <?xml version="1.0" encoding="UTF-8"?>
       <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
       <plist version="1.0">

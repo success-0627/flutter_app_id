@@ -1,5 +1,5 @@
 import 'package:flutter_application_id/file_updater/file_updater.dart';
-import 'package:flutter_application_id/file_updater/rules/gradle.dart';
+import 'package:flutter_application_id/file_updater/rules/pbxproj.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -10,45 +10,37 @@ void main() {
   }
 
   void whenUpdating(String key, String value) {
-    _fileUpdater.update(GradleString(key, value));
+    _fileUpdater.update(Pbxproj(key, value));
   }
 
   void thenExpectsFileContent(String fileContent) {
     expect(_fileUpdater.toString(), fileContent);
   }
 
-  test('Should update string value if present', () {
+  test('Should update symbol value if present', () {
     givenFileContent('''
-      android {
-        lintOptions {
-            disable  'valueBefore'
-        }
+      {
+        disable = symbolBefore;
       }
     ''');
-    whenUpdating('disable', 'valueAfter');
+    whenUpdating('disable', 'symbolAfter');
     thenExpectsFileContent('''
-      android {
-        lintOptions {
-            disable  'valueAfter'
-        }
+      {
+        disable = symbolAfter;
       }
     ''');
   });
 
   test('Should not update value if absent', () {
     givenFileContent('''
-      android {
-        lintOptions {
-            disable 'valueBefore'
-        }
+      {
+        disable = symbolBefore;
       }
     ''');
-    whenUpdating('absent', 'valueAfter');
+    whenUpdating('absent', 'symbolAfter');
     thenExpectsFileContent('''
-      android {
-        lintOptions {
-            disable 'valueBefore'
-        }
+      {
+        disable = symbolBefore;
       }
     ''');
   });
