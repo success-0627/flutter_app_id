@@ -1,6 +1,6 @@
 name: flutter_application_id
 description: A package which simplifies the task of updating your Flutter app's id.
-version: 0.0.5
+version: 0.0.6
 maintainer: Charly Caulet
 homepage: https://gitlab.com/uprefer/flutter/flutter_application_id
 authors: 

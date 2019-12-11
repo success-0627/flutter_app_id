@@ -19,3 +19,7 @@
 ## 0.0.5
 
 - Updates Pbxproj instead of Plist.
+
+## 0.0.6
+
+- Updates Application name if requested
