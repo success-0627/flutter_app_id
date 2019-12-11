@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import '../file_updater.dart';
 
 class GradleString implements UpdateRule {

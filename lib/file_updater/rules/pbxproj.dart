@@ -6,7 +6,6 @@ class Pbxproj implements UpdateRule {
   final String key;
   final String value;
 
-
   @override
   String update(String line) {
     return line.replaceAllMapped(RegExp('($key[ ]*=[ ]*)[a-zA-Z-_0-9.]*;'),
