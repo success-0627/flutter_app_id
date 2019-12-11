@@ -9,42 +9,85 @@ void main() {
     expect(
         Configuration.fromString('''
           flutter_application_id:
-            android: "com.example.myAndroidApp" 
-            ios: "com.example.myIosApp" 
+            android: 
+              id: "com.example.myAndroidApp" 
+              name: "androidName"
+            ios: 
+              id: "com.example.myIosApp" 
+              name: "iOSName"
         '''),
         const Configuration(
-            android: 'com.example.myAndroidApp', ios: 'com.example.myIosApp'));
+            android: PlatformConfiguration(
+                id: 'com.example.myAndroidApp', name: 'androidName'),
+            ios: PlatformConfiguration(
+                id: 'com.example.myIosApp', name: 'iOSName')));
+  });
+
+  test('Name should be null if absent', () {
+    expect(
+        Configuration.fromString('''
+          flutter_application_id:
+            android: 
+              id: "com.example.myAndroidApp"
+            ios: 
+              id: "com.example.myIosApp"
+        '''),
+        const Configuration(
+            android: PlatformConfiguration(id: 'com.example.myAndroidApp'),
+            ios: PlatformConfiguration(id: 'com.example.myIosApp')));
+  });
+
+  test('Id should be null if absent', () {
+    expect(
+        Configuration.fromString('''
+          flutter_application_id:
+            android: 
+              name: "androidName"
+            ios: 
+              name: "iOSName"
+        '''),
+        const Configuration(
+            android: PlatformConfiguration(name: 'androidName'),
+            ios: PlatformConfiguration(name: 'iOSName')));
   });
 
   test('Android should be null if absent from file', () {
-    expect(Configuration.fromString('''
+    expect(
+        Configuration.fromString('''
       flutter_application_id:
-        ios: "com.example.myIosApp"
-      '''), const Configuration(ios: 'com.example.myIosApp'));
+        ios: 
+          id: "com.example.myIosApp" 
+          name: "iOSName"
+      '''),
+        const Configuration(
+            ios: PlatformConfiguration(
+                id: 'com.example.myIosApp', name: 'iOSName')));
   });
 
   test('iOS should be null if absent from file', () {
-    expect(Configuration.fromString('''
+    expect(
+        Configuration.fromString('''
       flutter_application_id:
-        android: "com.example.myAndroidApp" 
-      '''), const Configuration(android: 'com.example.myAndroidApp'));
+        android: 
+          id: "com.example.myAndroidApp"
+          name: "androidName"
+      '''),
+        const Configuration(
+            android: PlatformConfiguration(
+                id: 'com.example.myAndroidApp', name: 'androidName')));
   });
 
   test(
       'Should throw NoConfigFoundException when `flutter_application_id` section is missing',
       () {
-    expect(
-        () => Configuration.fromString('''
+    expect(() => Configuration.fromString('''
           anotherKey: pouet
-        '''),
-        throwsA(const TypeMatcher<NoConfigFoundException>()));
+        '''), throwsA(const TypeMatcher<NoConfigFoundException>()));
   });
 
   test('Should throw YamlException when file is invalid yaml', () {
-    expect(
-        () => Configuration.fromString('''
+    expect(() => Configuration.fromString('''
           key: value: value:;
-        '''),
-        throwsA(const TypeMatcher<YamlException>()));
+        '''), throwsA(const TypeMatcher<YamlException>()));
   });
 }

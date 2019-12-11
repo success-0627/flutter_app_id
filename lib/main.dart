@@ -1,11 +1,14 @@
+import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:args/args.dart';
-import 'package:flutter_application_id/pbxproj.dart';
 
 import 'configuration.dart';
 import 'constants.dart';
-import 'gradle.dart';
+import 'file_updater/file_updater.dart';
+import 'file_updater/rules/pbxproj.dart';
+import 'file_updater/rules/gradle.dart';
 
 const String fileOption = 'file';
 const String helpFlag = 'help';
@@ -38,16 +41,18 @@ Future<void> updateApplicationIdFromArguments(List<String> arguments) async {
 
 Future<void> updateApplicationIdFromConfig(Configuration config) async {
   if (config.android != null) {
-    stdout.writeln('Updating Android application Id');
-    final Gradle gradleConf = await Gradle.fromFile(File(ANDROID_CONFIG_FILE));
-    gradleConf.updateString(ANDROID_APPID_KEY, config.android);
-    gradleConf.toFile(File(ANDROID_CONFIG_FILE));
-  }
-  if (config.ios != null) {
-    stdout.writeln('Updating iOS application Id');
-    final Pbxproj pbxprojConf = await Pbxproj.fromFile(File(IOS_PBXPROJ_FILE));
-    pbxprojConf.updateSymbol(IOS_APPID_KEY, config.ios);
-    pbxprojConf.toFile(File(IOS_PBXPROJ_FILE));
+    if (config.android.id != null) {
+      stdout.writeln('Updating Android application Id');
+      FileUpdater.updateFile(File(ANDROID_GRADLE_FILE),
+          GradleString(ANDROID_APPID_KEY, config.android.id));
+    }
+    if (config.ios != null) {
+      if (config.ios.id != null) {
+        stdout.writeln('Updating iOS application Id');
+        FileUpdater.updateFile(
+            File(IOS_PBXPROJ_FILE), Pbxproj(IOS_APPID_KEY, config.ios.id));
+      }
+    }
   }
 }
 
