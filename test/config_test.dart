@@ -78,6 +78,29 @@ void main() {
   });
 
   test(
+      'Should throw InvalidFormatException when `android` section not an object',
+      () {
+    expect(() => Configuration.fromString('''
+      flutter_application_id:
+        android: "toto"
+        ios: 
+          id: "com.example.myIosApp" 
+          name: "iOSName"
+      '''), throwsA(const TypeMatcher<InvalidFormatException>()));
+  });
+
+  test('Should throw InvalidFormatException when `ios` section not an object',
+      () {
+    expect(() => Configuration.fromString('''
+      flutter_application_id:
+        android: 
+          id: "com.example.myAndroidApp"
+          name: "androidName"
+        ios: "toto"
+      '''), throwsA(const TypeMatcher<InvalidFormatException>()));
+  });
+
+  test(
       'Should throw NoConfigFoundException when `flutter_application_id` section is missing',
       () {
     expect(() => Configuration.fromString('''

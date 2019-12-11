@@ -7,10 +7,13 @@ import 'package:yaml/yaml.dart';
 class PlatformConfiguration extends Equatable {
   const PlatformConfiguration({this.id, this.name});
 
-  static PlatformConfiguration fromYamlMap(YamlMap map) {
+  static PlatformConfiguration fromYamlMap(dynamic map) {
     if (map == null) {
       return null;
     } 
+    if (!(map is YamlMap)) {
+      throw InvalidFormatException();
+    }
     return PlatformConfiguration(id: map[_ID_KEY], name: map[_NAME_KEY]);
   }
 
@@ -38,7 +41,7 @@ class Configuration extends Equatable {
 
     if (yamlMap == null ||
         !yamlMap.containsKey(_FLUTTER_APPLICATION_ID_KEY) ||
-        !(yamlMap[_FLUTTER_APPLICATION_ID_KEY] is Map)) {
+        !(yamlMap[_FLUTTER_APPLICATION_ID_KEY] is YamlMap)) {
       throw NoConfigFoundException();
     }
     return Configuration(
