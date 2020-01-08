@@ -5,6 +5,7 @@ maintainer: Charly Caulet
 homepage: https://gitlab.com/uprefer/flutter/flutter_application_id
 authors: 
 - Charly Caulet <contact@charly-caulet.net>
+- Arnaud DA SILVA <arnaud.dasilva@netc.eu>
 
 dependencies: 
   args: "^1.5.0"
