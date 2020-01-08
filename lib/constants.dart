@@ -4,10 +4,12 @@ const List<String> DEFAULT_CONFIG_FILES = <String>[
 ];
 
 const String ANDROID_GRADLE_FILE = 'android/app/build.gradle';
-const String ANDROID_MANIFEST_FILE = 'android/app/src/main/AndroidManifest.xml';
+const String ANDROID_MAIN_MANIFEST_FILE = 'android/app/src/main/AndroidManifest.xml';
+const String ANDROID_DEBUG_MANIFEST_FILE = 'android/app/src/debug/AndroidManifest.xml';
+const String ANDROID_PROFILE_MANIFEST_FILE = 'android/app/src/profile/AndroidManifest.xml';
 const String ANDROID_APPID_KEY = 'applicationId';
 const String ANDROID_APPNAME_KEY = 'android:label';
-
+const String ANDROID_PACKAGE_NAME = 'package';
 const String IOS_PBXPROJ_FILE = 'ios/Runner.xcodeproj/project.pbxproj';
 const String IOS_PLIST_FILE = 'ios/Runner/Info.plist';
 const String IOS_APPID_KEY = 'PRODUCT_BUNDLE_IDENTIFIER';

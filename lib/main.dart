@@ -50,11 +50,24 @@ Future<void> updateApplicationIdFromConfig(Configuration config) async {
       stdout.writeln('Updating Android application Id');
       FileUpdater.updateFile(File(ANDROID_GRADLE_FILE),
           GradleString(ANDROID_APPID_KEY, config.android.id));
+
+      FileUpdater.updateFile(File(ANDROID_MAIN_MANIFEST_FILE),
+          XmlAttribute(ANDROID_PACKAGE_NAME, config.android.id));
+        
+      final List<String> configParts = config.android.id.split('.');
+      configParts[2] = 'placeholder';
+
+      FileUpdater.updateFile(File(ANDROID_DEBUG_MANIFEST_FILE),
+          XmlAttribute(ANDROID_PACKAGE_NAME, configParts.join('.')));
+
+      FileUpdater.updateFile(File(ANDROID_PROFILE_MANIFEST_FILE),
+          XmlAttribute(ANDROID_PACKAGE_NAME, configParts.join('.')));
     }
     if (config.android.name != null) {
       stdout.writeln('Updating Android application name');
-      FileUpdater.updateFile(File(ANDROID_MANIFEST_FILE),
+      FileUpdater.updateFile(File(ANDROID_MAIN_MANIFEST_FILE),
           XmlAttribute(ANDROID_APPNAME_KEY, config.android.name));
+
     }
     if (config.ios != null) {
       if (config.ios.id != null) {
