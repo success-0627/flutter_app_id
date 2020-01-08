@@ -50,9 +50,6 @@ Future<void> updateApplicationIdFromConfig(Configuration config) async {
       stdout.writeln('Updating Android application Id');
       FileUpdater.updateFile(File(ANDROID_GRADLE_FILE),
           GradleString(ANDROID_APPID_KEY, config.android.id));
-
-      FileUpdater.updateFile(File(ANDROID_MAIN_MANIFEST_FILE),
-          XmlAttribute(ANDROID_PACKAGE_NAME, config.android.id));
         
       final List<String> configParts = config.android.id.split('.');
       configParts[2] = 'placeholder';
