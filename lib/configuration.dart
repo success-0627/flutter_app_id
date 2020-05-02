@@ -10,7 +10,7 @@ class PlatformConfiguration extends Equatable {
   static PlatformConfiguration fromYamlMap(dynamic map) {
     if (map == null) {
       return null;
-    } 
+    }
     if (!(map is YamlMap)) {
       throw InvalidFormatException();
     }
@@ -45,8 +45,10 @@ class Configuration extends Equatable {
       throw NoConfigFoundException();
     }
     return Configuration(
-        android: PlatformConfiguration.fromYamlMap(yamlMap[_FLUTTER_APPLICATION_ID_KEY][_ANDROID_KEY]),
-        ios: PlatformConfiguration.fromYamlMap(yamlMap[_FLUTTER_APPLICATION_ID_KEY][_IOS_KEY]));
+        android: PlatformConfiguration.fromYamlMap(
+            yamlMap[_FLUTTER_APPLICATION_ID_KEY][_ANDROID_KEY]),
+        ios: PlatformConfiguration.fromYamlMap(
+            yamlMap[_FLUTTER_APPLICATION_ID_KEY][_IOS_KEY]));
   }
 
   static Future<Configuration> fromFile(File file) async {
