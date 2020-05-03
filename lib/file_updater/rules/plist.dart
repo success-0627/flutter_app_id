@@ -19,7 +19,7 @@ class Plist implements UpdateRule {
     } else {
       previousLineMatchedKey = false;
       return line.replaceAll(
-            RegExp(r'<string>[^<]*</string>'), '<string>$value</string>');
+          RegExp(r'<string>[^<]*</string>'), '<string>$value</string>');
     }
   }
 }
