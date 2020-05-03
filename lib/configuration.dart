@@ -11,7 +11,7 @@ class PlatformConfiguration extends Equatable {
     if (map == null) {
       return null;
     }
-    if (!(map is YamlMap)) {
+    if (map is! YamlMap) {
       throw InvalidFormatException();
     }
     return PlatformConfiguration(id: map[_ID_KEY], name: map[_NAME_KEY]);
