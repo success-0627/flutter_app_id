@@ -3,8 +3,6 @@ description: A command-line tool to update your Flutter app's Name and ID
 version: 1.0.0
 maintainer: Charly Caulet
 homepage: https://gitlab.com/uprefer/flutter/flutter_application_id
-authors: 
-- Charly Caulet <contact@charly-caulet.net>
 
 dependencies: 
   args: "^1.5.0"
