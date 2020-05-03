@@ -1,0 +1,22 @@
+name: embedded_setup
+description: A new Flutter project.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_application_id: "^0.0.6"
+
+flutter_application_id:
+  android: 
+    id: "com.example.myAndroidApp"
+    name: "MyApplication - Android"
+  ios:
+    id: "com.example.myIosApp"
+    name: "MyApplication - iOS"

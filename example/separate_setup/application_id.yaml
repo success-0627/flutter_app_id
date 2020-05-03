@@ -1,0 +1,7 @@
+flutter_application_id:
+  android: 
+    id: "com.example.myAndroidApp"
+    name: "MyApplication - Android"
+  ios:
+    id: "com.example.myIosApp"
+    name: "MyApplication - iOS"
