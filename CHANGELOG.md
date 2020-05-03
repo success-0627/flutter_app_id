@@ -23,3 +23,9 @@
 ## 0.0.6
 
 - Updates Application name if requested
+
+## 1.0.0
+
+- Update dependencies
+- Add usage examples
+- Improve Readme
