@@ -11,7 +11,7 @@ An example is shown below.
 
 ```yaml
 dev_dependencies: 
-  flutter_application_id: "^0.0.6"
+  flutter_application_id: "^1.0.0"
   
 flutter_application_id:
   android: 
