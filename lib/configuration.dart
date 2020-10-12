@@ -32,7 +32,6 @@ class PlatformConfiguration extends Equatable {
 class PlatformConfigurationIOS extends PlatformConfiguration {
   static const String PLIST_KEY = 'plist';
   static const String PBXPROJ_KEY = 'pbxproj';
-  static final _prefixToRemove = RegExp(r'ios/');
 
   final String plist;
   final String pbxproj;
@@ -51,23 +50,11 @@ class PlatformConfigurationIOS extends PlatformConfiguration {
     if (!(map is YamlMap)) {
       throw InvalidFormatException();
     }
-
-    String plistPath =
-        map[PlatformConfigurationIOS.PLIST_KEY] ?? IOS_PLIST_FILE;
-    if (plistPath.startsWith(_prefixToRemove)) {
-      plistPath = plistPath.replaceFirst(_prefixToRemove, '');
-    }
-    String pbxprojPath =
-        map[PlatformConfigurationIOS.PBXPROJ_KEY] ?? IOS_PBXPROJ_FILE;
-    if (pbxprojPath.startsWith(_prefixToRemove)) {
-      pbxprojPath = plistPath.replaceFirst(pbxprojPath, '');
-    }
-
     return PlatformConfigurationIOS(
       id: map[PlatformConfiguration.ID_KEY],
       name: map[PlatformConfiguration.NAME_KEY],
-      plist: plistPath,
-      pbxproj: pbxprojPath,
+      plist: map[PlatformConfigurationIOS.PLIST_KEY] ?? IOS_PLIST_FILE,
+      pbxproj: map[PlatformConfigurationIOS.PBXPROJ_KEY] ?? IOS_PBXPROJ_FILE,
     );
   }
 
