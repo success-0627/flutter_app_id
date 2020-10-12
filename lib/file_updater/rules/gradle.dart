@@ -1,6 +1,6 @@
 import '../file_updater.dart';
 
-class GradleString implements UpdateRule {
+class GradleString extends UpdateRule {
   GradleString(this.key, this.value);
 
   final String key;

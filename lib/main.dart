@@ -56,17 +56,18 @@ Future<void> updateApplicationIdFromConfig(Configuration config) async {
       FileUpdater.updateFile(File(ANDROID_MANIFEST_FILE),
           XmlAttribute(ANDROID_APPNAME_KEY, config.android.name));
     }
-    if (config.ios != null) {
-      if (config.ios.id != null) {
-        stdout.writeln('Updating iOS application Id');
-        FileUpdater.updateFile(
-            File(IOS_PBXPROJ_FILE), Pbxproj(IOS_APPID_KEY, config.ios.id));
-      }
-      if (config.ios.name != null) {
-        stdout.writeln('Updating iOS application name');
-        FileUpdater.updateFile(
-            File(IOS_PLIST_FILE), Plist(IOS_APPNAME_KEY, config.ios.name));
-      }
+  }
+
+  if (config.ios != null) {
+    if (config.ios.id != null) {
+      stdout.writeln('Updating iOS application Id');
+      FileUpdater.updateFile(
+          File(config.ios.pbxproj), Pbxproj(IOS_APPID_KEY, config.ios.id));
+    }
+    if (config.ios.name != null) {
+      stdout.writeln('Updating iOS application name');
+      FileUpdater.updateFile(
+          File(config.ios.plist), Plist(IOS_APPNAME_KEY, config.ios.name));
     }
   }
 }

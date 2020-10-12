@@ -19,7 +19,7 @@ void main() {
         const Configuration(
             android: PlatformConfiguration(
                 id: 'com.example.myAndroidApp', name: 'androidName'),
-            ios: PlatformConfiguration(
+            ios: PlatformConfigurationIOS(
                 id: 'com.example.myIosApp', name: 'iOSName')));
   });
 
@@ -34,7 +34,7 @@ void main() {
         '''),
         const Configuration(
             android: PlatformConfiguration(id: 'com.example.myAndroidApp'),
-            ios: PlatformConfiguration(id: 'com.example.myIosApp')));
+            ios: PlatformConfigurationIOS(id: 'com.example.myIosApp')));
   });
 
   test('Id should be null if absent', () {
@@ -48,7 +48,7 @@ void main() {
         '''),
         const Configuration(
             android: PlatformConfiguration(name: 'androidName'),
-            ios: PlatformConfiguration(name: 'iOSName')));
+            ios: PlatformConfigurationIOS(name: 'iOSName')));
   });
 
   test('Android should be null if absent from file', () {
@@ -60,7 +60,7 @@ void main() {
           name: "iOSName"
       '''),
         const Configuration(
-            ios: PlatformConfiguration(
+            ios: PlatformConfigurationIOS(
                 id: 'com.example.myIosApp', name: 'iOSName')));
   });
 

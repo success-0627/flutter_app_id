@@ -1,7 +1,7 @@
 import 'dart:io';
 
-class UpdateRule {
-  String update(String line) => line;
+abstract class UpdateRule {
+  String update(String line);
 }
 
 class FileUpdater {
