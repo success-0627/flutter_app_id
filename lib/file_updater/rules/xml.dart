@@ -1,6 +1,6 @@
 import '../file_updater.dart';
 
-class XmlAttribute implements UpdateRule {
+class XmlAttribute extends UpdateRule {
   XmlAttribute(this.key, this.value);
 
   final String key;

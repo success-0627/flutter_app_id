@@ -1,6 +1,6 @@
 import '../file_updater.dart';
 
-class Plist implements UpdateRule {
+class Plist extends UpdateRule {
   Plist(this.key, this.value);
 
   final String key;

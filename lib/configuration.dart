@@ -4,27 +4,75 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_application_id/custom_exceptions.dart';
 import 'package:yaml/yaml.dart';
 
+import 'constants.dart';
+
 class PlatformConfiguration extends Equatable {
+  static const String ID_KEY = 'id';
+  static const String NAME_KEY = 'name';
+
+  final String id;
+  final String name;
+
   const PlatformConfiguration({this.id, this.name});
 
   static PlatformConfiguration fromYamlMap(dynamic map) {
     if (map == null) {
       return null;
-    } 
+    }
     if (!(map is YamlMap)) {
       throw InvalidFormatException();
     }
-    return PlatformConfiguration(id: map[_ID_KEY], name: map[_NAME_KEY]);
+    return PlatformConfiguration(id: map[ID_KEY], name: map[NAME_KEY]);
   }
-
-  static const String _ID_KEY = 'id';
-  static const String _NAME_KEY = 'name';
-
-  final String id;
-  final String name;
 
   @override
   List<Object> get props => <Object>[id, name];
+}
+
+class PlatformConfigurationIOS extends PlatformConfiguration {
+  static const String PLIST_KEY = 'plist';
+  static const String PBXPROJ_KEY = 'pbxproj';
+  static final _prefixToRemove = RegExp(r'ios/');
+
+  final String plist;
+  final String pbxproj;
+
+  const PlatformConfigurationIOS({
+    String id,
+    String name,
+    this.plist,
+    this.pbxproj,
+  }) : super(id: id, name: name);
+
+  static PlatformConfigurationIOS fromYamlMap(dynamic map) {
+    if (map == null) {
+      return null;
+    }
+    if (!(map is YamlMap)) {
+      throw InvalidFormatException();
+    }
+
+    String plistPath =
+        map[PlatformConfigurationIOS.PLIST_KEY] ?? IOS_PLIST_FILE;
+    if (plistPath.startsWith(_prefixToRemove)) {
+      plistPath = plistPath.replaceFirst(_prefixToRemove, '');
+    }
+    String pbxprojPath =
+        map[PlatformConfigurationIOS.PBXPROJ_KEY] ?? IOS_PBXPROJ_FILE;
+    if (pbxprojPath.startsWith(_prefixToRemove)) {
+      pbxprojPath = plistPath.replaceFirst(pbxprojPath, '');
+    }
+
+    return PlatformConfigurationIOS(
+      id: map[PlatformConfiguration.ID_KEY],
+      name: map[PlatformConfiguration.NAME_KEY],
+      plist: plistPath,
+      pbxproj: pbxprojPath,
+    );
+  }
+
+  @override
+  List<Object> get props => (super.props..addAll(<Object>[plist, pbxproj]));
 }
 
 class Configuration extends Equatable {
@@ -34,7 +82,7 @@ class Configuration extends Equatable {
   static const String _IOS_KEY = 'ios';
   static const String _ANDROID_KEY = 'android';
   final PlatformConfiguration android;
-  final PlatformConfiguration ios;
+  final PlatformConfigurationIOS ios;
 
   static Configuration fromString(String data) {
     final YamlMap yamlMap = loadYaml(data);
@@ -45,8 +93,13 @@ class Configuration extends Equatable {
       throw NoConfigFoundException();
     }
     return Configuration(
-        android: PlatformConfiguration.fromYamlMap(yamlMap[_FLUTTER_APPLICATION_ID_KEY][_ANDROID_KEY]),
-        ios: PlatformConfiguration.fromYamlMap(yamlMap[_FLUTTER_APPLICATION_ID_KEY][_IOS_KEY]));
+      android: PlatformConfiguration.fromYamlMap(
+        yamlMap[_FLUTTER_APPLICATION_ID_KEY][_ANDROID_KEY],
+      ),
+      ios: PlatformConfigurationIOS.fromYamlMap(
+        yamlMap[_FLUTTER_APPLICATION_ID_KEY][_IOS_KEY],
+      ),
+    );
   }
 
   static Future<Configuration> fromFile(File file) async {
